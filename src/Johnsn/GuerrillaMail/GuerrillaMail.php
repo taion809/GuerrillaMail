@@ -1,6 +1,6 @@
 <?php
 
-namespace GuerrillaMail;
+namespace Johnsn\GuerrillaMail;
 
 class GuerrillaMail
 {

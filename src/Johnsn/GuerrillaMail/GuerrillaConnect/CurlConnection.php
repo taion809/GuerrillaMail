@@ -1,6 +1,6 @@
 <?php
 
-namespace GuerrillaMail\GuerrillaConnect;
+namespace Johnsn\GuerrillaMail\GuerrillaConnect;
 
 class CurlConnection implements GuerrillaConnectInterface
 {
