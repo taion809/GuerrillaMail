@@ -74,6 +74,12 @@ class GuerrillaMail
         return $this->_transmit($query);
     }
 
+    public function del_email($sid, array $email_ids)
+    {
+        $query = $this->_build_query(array('f' => 'del_email', 'email_ids[]' => $email_ids), $sid);
+        return $this->_transmit($query);
+    }
+
     private function _build_query($param, $sid = null)
     {
         $query = array_merge($this->query, $param);
