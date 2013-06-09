@@ -54,9 +54,23 @@ class GuerrillaMail
         return $this->_receive($query);
     }
 
+    public function fetch_email($sid, $email_id)
+    {
+        $query = $this->_build_query(array('f' => 'fetch_email', 'email_id' => $email_id), $sid);
+        $response = $this->_receive($query);
+
+        return $response;
+    }
+
     public function set_email_address($sid, $email, $lang = 'en')
     {
         $query = $this->_build_query(array('f' => 'set_email_user', 'lang' => $lang, 'email_user' => $email), $sid);
+        return $this->_transmit($query);
+    }
+
+    public function forget_me($sid, $email)
+    {
+        $query = $this->_build_query(array('f' => 'forget_me', 'email_addr' => $email), $sid);
         return $this->_transmit($query);
     }
 
@@ -72,8 +86,6 @@ class GuerrillaMail
         {
             $query['sid_token'] = $this->sid;
         }
-
-        var_dump($query);
 
         return $query;
     }
