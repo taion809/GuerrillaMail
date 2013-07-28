@@ -20,6 +20,3 @@ $response = $gm->get_email_address();
 //Fetch user's emails.
 $emails = $gm->check_email($response['sid_token']);
 ```
-
-
-Editing test
