@@ -1,0 +1,22 @@
+{
+    "name": "johnsn/guerrillamail",
+    "type": "library",
+    "description": "A simple GuerillaMail library for PHP 5.3+",
+    "keywords": ["email"],
+    "homepage": "https://github.com/njkt/GuerrillaMail",
+    "license": "MIT",
+    "authors": [
+        {
+        "name": "Nicholas Johns",
+        "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Johnsn\\GuerrillaMail": "src"
+        }
+    }
+}
