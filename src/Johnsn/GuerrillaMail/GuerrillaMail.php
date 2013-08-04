@@ -25,9 +25,14 @@ class GuerrillaMail
         $this->sid = $sid;
     }
 
-    public function set_sid($sid)
+    public function __get($key)
     {
-        $this->sid = $sid;
+        return $this->$key;
+    }
+
+    public function __set($key, $value)
+    {
+        $this->$key = $value;
     }
 
     public function get_email_address($lang = 'en')
