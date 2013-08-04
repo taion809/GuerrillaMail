@@ -53,7 +53,7 @@ class CurlConnection implements GuerrillaConnectInterface
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($ch);
 
-        var_dump($output);
+        var_dump(http_build_query($query));
 
         $response = json_decode($output, true);
 

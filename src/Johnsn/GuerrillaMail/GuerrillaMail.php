@@ -44,7 +44,7 @@ class GuerrillaMail
 
     public function get_email_list($sid, $offset = 0, $seq = null)
     {
-        $query = $this->_build_query(array('f' => 'get_email_address', 'offset' => $offset), $sid);
+        $query = $this->_build_query(array('f' => 'get_email_list', 'offset' => $offset), $sid);
 
         if(!empty($seq))
         {
