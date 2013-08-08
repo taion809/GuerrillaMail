@@ -1,7 +1,7 @@
 {
     "name": "johnsn/guerrillamail",
     "type": "library",
-    "description": "A simple GuerillaMail library for PHP 5.3+",
+    "description": "A simple GuerrillaMail library for PHP 5.3+",
     "keywords": ["email"],
     "homepage": "https://github.com/taion809/GuerrillaMail",
     "license": "MIT",
