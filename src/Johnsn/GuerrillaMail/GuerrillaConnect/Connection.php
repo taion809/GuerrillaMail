@@ -30,11 +30,12 @@ abstract class Connection
 
             foreach($value as $a_key => $a_value)
             {
-                $query .= "&{$a_key}%5B%5D=" . urlencode($a_value);
+                $query .= "&{$key}%5B%5D=" . urlencode($a_value);
             }
         }
 
         return $query;
+
     }
 
     abstract function retrieve($action, $query);

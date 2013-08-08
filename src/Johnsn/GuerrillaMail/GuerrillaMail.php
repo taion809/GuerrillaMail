@@ -6,17 +6,17 @@ class GuerrillaMail
 {
     private $connection = null;
 
-    private $sid = null;
+    private $sid_token = null;
 
     private $domains = array(
         'guerrillamailblock.com',
     );
 
-    public function __construct($connection, $sid = null)
+    public function __construct($connection, $sid_token = null)
     {
         $this->connection = $connection;
 
-        $this->sid = $sid;
+        $this->sid_token = $sid_token;
     }
 
     public function __get($key)
@@ -31,14 +31,7 @@ class GuerrillaMail
             'lang' => $lang
         );
 
-        $response = $this->_retrieve($action, $options);
-
-        if(isset($response['sid_token']))
-        {
-            $this->sid = $response['sid_token'];
-        }
-
-        return $response;
+        return $this->_retrieve($action, $options);
     }
 
     public function check_email()
@@ -46,7 +39,7 @@ class GuerrillaMail
         $action = "check_email";
         $options = array(
             'seq' => 0,
-            'sid' => $this->sid
+            'sid_token' => $this->sid_token
         );
 
         return $this->_retrieve($action, $options);
@@ -57,7 +50,7 @@ class GuerrillaMail
         $action = "get_email_list";
         $options = array(
             'offset' => $offset,
-            'sid' => $this->sid
+            'sid_token' => $this->sid_token
         );
 
         if(!empty($seq))
@@ -73,7 +66,7 @@ class GuerrillaMail
         $action = "fetch_email";
         $options = array(
             'email_id' => $email_id,
-            'sid' => $this->sid
+            'sid_token' => $this->sid_token
         );
 
         return $this->_retrieve($action, $options);
@@ -85,7 +78,7 @@ class GuerrillaMail
         $options = array(
             'email_user' => $email_user,
             'lang' => $lang,
-            'sid' => $this->sid
+            'sid_token' => $this->sid_token
         );
 
         return $this->_transmit($action, $options);
@@ -96,18 +89,18 @@ class GuerrillaMail
         $action = "forget_me";
         $options = array(
             'email_addr' => $email_address,
-            'sid' => $this->sid
+            'sid_token' => $this->sid_token
         );
 
         return $this->_transmit($action, $options);
     }
 
-    public function del_email(array $email_ids)
+    public function del_email($email_ids)
     {
-        $action = "forget_me";
+        $action = "del_email";
         $options = array(
             'email_ids' => $email_ids,
-            'sid' => $this->sid
+            'sid_token' => $this->sid_token
         );
 
         return $this->_transmit($action, $options);
@@ -122,6 +115,11 @@ class GuerrillaMail
             return false;
         }
 
+        if(isset($response['data']['sid_token']))
+        {
+            $this->sid_token = $response['data']['sid_token'];
+        }
+
         return $response['data'];
     }
 
@@ -132,6 +130,11 @@ class GuerrillaMail
         if($response['status'] == 'error')
         {
             return false;
+        }
+
+        if(isset($response['data']['sid_token']))
+        {
+            $this->sid_token = $response['data']['sid_token'];
         }
 
         return $response['data'];
