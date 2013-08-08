@@ -4,14 +4,30 @@ namespace Johnsn\GuerrillaMail;
 
 class GuerrillaMail
 {
+    /**
+     * Connection Object
+     * @var null
+     */
     private $connection = null;
 
+    /**
+     * sid_token
+     * @var null
+     */
     private $sid_token = null;
 
+    /**
+     * Available domains
+     * @var array
+     */
     private $domains = array(
         'guerrillamailblock.com',
     );
 
+    /**
+     * @param $connection
+     * @param null $sid_token
+     */
     public function __construct($connection, $sid_token = null)
     {
         $this->connection = $connection;
@@ -24,6 +40,12 @@ class GuerrillaMail
         return $this->$key;
     }
 
+    /**
+     * Fetch new email address.
+     *
+     * @param string $lang
+     * @return mixed
+     */
     public function get_email_address($lang = 'en')
     {
         $action = "get_email_address";
@@ -34,6 +56,10 @@ class GuerrillaMail
         return $this->_retrieve($action, $options);
     }
 
+    /**
+     * Fetch new emails
+     * @return mixed
+     */
     public function check_email()
     {
         $action = "check_email";
@@ -45,7 +71,12 @@ class GuerrillaMail
         return $this->_retrieve($action, $options);
     }
 
-    public function get_email_list($offset = 0, $seq = null)
+    /**
+     * @param int $offset
+     * @param int $seq
+     * @return mixed
+     */
+    public function get_email_list($offset = 0, $seq = 0)
     {
         $action = "get_email_list";
         $options = array(
@@ -61,6 +92,10 @@ class GuerrillaMail
         return $this->_retrieve($action, $options);
     }
 
+    /**
+     * @param $email_id
+     * @return bool
+     */
     public function fetch_email($email_id)
     {
         $action = "fetch_email";
@@ -72,6 +107,11 @@ class GuerrillaMail
         return $this->_retrieve($action, $options);
     }
 
+    /**
+     * @param $email_user
+     * @param string $lang
+     * @return bool
+     */
     public function set_email_address($email_user, $lang = 'en')
     {
         $action = "set_email_user";
@@ -84,6 +124,10 @@ class GuerrillaMail
         return $this->_transmit($action, $options);
     }
 
+    /**
+     * @param $email_address
+     * @return bool
+     */
     public function forget_me($email_address)
     {
         $action = "forget_me";
@@ -95,6 +139,10 @@ class GuerrillaMail
         return $this->_transmit($action, $options);
     }
 
+    /**
+     * @param $email_ids
+     * @return bool
+     */
     public function del_email($email_ids)
     {
         $action = "del_email";
@@ -106,6 +154,11 @@ class GuerrillaMail
         return $this->_transmit($action, $options);
     }
 
+    /**
+     * @param $action
+     * @param $options
+     * @return bool
+     */
     private function _retrieve($action, $options)
     {
         $response = $this->connection->retrieve($action, $options);
@@ -123,6 +176,11 @@ class GuerrillaMail
         return $response['data'];
     }
 
+    /**
+     * @param $action
+     * @param $options
+     * @return bool
+     */
     private function _transmit($action, $options)
     {
         $response = $this->connection->transmit($action, $options);

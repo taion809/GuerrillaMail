@@ -9,14 +9,37 @@
 
 namespace Johnsn\GuerrillaMail\GuerrillaConnect;
 
+/**
+ * Class Connection
+ * @package Johnsn\GuerrillaMail\GuerrillaConnect
+ */
 abstract class Connection
 {
+    /**
+     * GuerrillaMail api endpoint.
+     * @var string
+     */
     protected $url = 'http://api.guerrillamail.com/ajax.php';
 
+    /**
+     * Client IP Address
+     * @var string
+     */
     protected $ip = "127.0.0.1";
 
+    /**
+     * Client Agent
+     * @var string
+     */
     protected $agent = "GuerrillaMail_Library";
 
+    /**
+     * Format query string for GuerrillaMail API consumption.
+     *
+     * @param $action
+     * @param array $options
+     * @return string
+     */
     public function build_query($action, array $options)
     {
         $query = "f={$action}";
@@ -35,9 +58,23 @@ abstract class Connection
         }
 
         return $query;
-
     }
 
-    abstract function retrieve($action, $query);
-    abstract function transmit($action, $query);
+    /**
+     * HTTP GET
+     *
+     * @param string $action
+     * @param array $query
+     * @return mixed
+     */
+    abstract function retrieve($action, array $query);
+
+    /**
+     * HTTP POST
+     *
+     * @param string $action
+     * @param array $query
+     * @return mixed
+     */
+    abstract function transmit($action, array $query);
 }

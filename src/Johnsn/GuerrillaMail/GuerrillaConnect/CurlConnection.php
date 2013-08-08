@@ -2,8 +2,17 @@
 
 namespace Johnsn\GuerrillaMail\GuerrillaConnect;
 
+/**
+ * Class CurlConnection
+ * @package Johnsn\GuerrillaMail\GuerrillaConnect
+ */
 class CurlConnection extends Connection
 {
+    /**
+     * @param string $ip Client IP
+     * @param string $agent Client Agent
+     * @param string $url API Endpoint
+     */
     public function __construct($ip, $agent = '', $url = '')
     {
         $this->ip = $ip;
@@ -19,7 +28,14 @@ class CurlConnection extends Connection
         }
     }
 
-    public function retrieve($action, $query)
+    /**
+     * HTTP GET using cURL
+     *
+     * @param string $action
+     * @param array $query
+     * @return array|mixed
+     */
+    public function retrieve($action, array $query)
     {
         $url = $this->url . '?'. $this->build_query($action, $query);
         
@@ -47,7 +63,14 @@ class CurlConnection extends Connection
         return $data;
     }
 
-    public function transmit($action, $query)
+    /**
+     * HTTP POST using cURL
+     *
+     * @param string $action
+     * @param array $query
+     * @return array|mixed
+     */
+    public function transmit($action, array $query)
     {
         $url = $this->url;
 
