@@ -2,21 +2,26 @@
 
 namespace Johnsn\GuerrillaMail\GuerrillaConnect;
 
-class CurlConnection implements GuerrillaConnectInterface
+class CurlConnection extends Connection
 {
-    protected $url = 'http://api.guerrillamail.com/ajax.php';
-
-    public function __construct($url = '')
+    public function __construct($ip, $agent = '', $url = '')
     {
+        $this->ip = $ip;
+
+        if(!empty($agent))
+        {
+            $this->agent = $agent;
+        }
+
         if(!empty($url))
         {
             $this->url = $url;
         }
     }
 
-    public function retrieve($query)
+    public function retrieve($action, $query)
     {
-        $url = $this->url . '?'.http_build_query($query);
+        $url = $this->url . '?'. $this->build_query($action, $query);
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -42,14 +47,14 @@ class CurlConnection implements GuerrillaConnectInterface
         return $data;
     }
 
-    public function transmit($query)
+    public function transmit($action, $query)
     {
         $url = $this->url;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($query));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->build_query($action, $query));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         $output = curl_exec($ch);
 

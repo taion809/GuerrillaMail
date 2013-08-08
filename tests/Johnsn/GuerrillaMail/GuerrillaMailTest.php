@@ -18,13 +18,14 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 		);
 
     	$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+            ->setConstructorArgs(array("127.0.0.1"))
     		->getMock();
 
 		$connection->expects($this->once())
 			->method('retrieve')
 			->will($this->returnValue($response));
 
-    	$gm = new GuerrillaMail($connection, '127.0.0.1', 'PHPUnit_Test');
+    	$gm = new GuerrillaMail($connection);
 
     	$email = $gm->get_email_address();
 
@@ -44,14 +45,15 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 			),
 		);
 
-    	$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
-    		->getMock();
+        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+            ->setConstructorArgs(array("127.0.0.1"))
+            ->getMock();
 
-		$connection->expects($this->once())
-			->method('retrieve')
-			->will($this->returnValue($response));
+        $connection->expects($this->once())
+            ->method('retrieve')
+            ->will($this->returnValue($response));
 
-    	$gm = new GuerrillaMail($connection, '127.0.0.1', 'PHPUnit_Test');
+        $gm = new GuerrillaMail($connection);
 
     	$email = $gm->get_email_address();
 
@@ -73,16 +75,17 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
     	$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 
-		$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
-    		->getMock();
+        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+            ->setConstructorArgs(array("127.0.0.1"))
+            ->getMock();
 
-		$connection->expects($this->once())
-			->method('retrieve')
-			->will($this->returnValue($response));
+        $connection->expects($this->once())
+            ->method('retrieve')
+            ->will($this->returnValue($response));
 
-		$gm = new GuerrillaMail($connection, '127.0.0.1', 'PHPUnit_Test');
+        $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->check_email($sid);
+    	$email = $gm->check_email();
 
     	$this->assertArrayHasKey('list', $email);
     }
@@ -102,16 +105,17 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
     	$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 
-		$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
-    		->getMock();
+        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+            ->setConstructorArgs(array("127.0.0.1"))
+            ->getMock();
 
-		$connection->expects($this->once())
-			->method('retrieve')
-			->will($this->returnValue($response));
+        $connection->expects($this->once())
+            ->method('retrieve')
+            ->will($this->returnValue($response));
 
-		$gm = new GuerrillaMail($connection, '127.0.0.1', 'PHPUnit_Test');
+        $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->check_email($sid);
+    	$email = $gm->check_email();
 
     	$this->assertArrayHasKey('list', $email);
     }
@@ -128,16 +132,17 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
     	$sid = '2cvob6bud4l6iqb61tvnklc7i7';
     	$mail_id = 1;
 
-		$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
-    		->getMock();
+        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+            ->setConstructorArgs(array("127.0.0.1"))
+            ->getMock();
 
-		$connection->expects($this->once())
-			->method('retrieve')
-			->will($this->returnValue($response));
+        $connection->expects($this->once())
+            ->method('retrieve')
+            ->will($this->returnValue($response));
 
-		$gm = new GuerrillaMail($connection, '127.0.0.1', 'PHPUnit_Test');
+        $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->fetch_email($sid, $mail_id);
+    	$email = $gm->fetch_email($mail_id);
 
     	$this->assertEquals($email['mail_id'], 1);
     }
@@ -156,16 +161,17 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 		$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 		$expectedEmail = 'new_email@guerrillamailblock.com';
 
-    	$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
-    		->getMock();
+        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+            ->setConstructorArgs(array("127.0.0.1"))
+            ->getMock();
 
-		$connection->expects($this->once())
-			->method('transmit')
-			->will($this->returnValue($response));
+        $connection->expects($this->once())
+            ->method('transmit')
+            ->will($this->returnValue($response));
 
-    	$gm = new GuerrillaMail($connection, '127.0.0.1', 'PHPUnit_Test');
+        $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->set_email_address($sid, 'new_email@guerrillamailblock.com');
+    	$email = $gm->set_email_address('new_email@guerrillamailblock.com');
 
     	$this->assertEquals($email['email_addr'], $expectedEmail);
     }
@@ -180,16 +186,17 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 		$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 		$forgetableEmail = 'new_email@guerrillamailblock.com';
 
-    	$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
-    		->getMock();
+        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+            ->setConstructorArgs(array("127.0.0.1"))
+            ->getMock();
 
-		$connection->expects($this->once())
-			->method('transmit')
-			->will($this->returnValue($response));
+        $connection->expects($this->once())
+            ->method('transmit')
+            ->will($this->returnValue($response));
 
-    	$gm = new GuerrillaMail($connection, '127.0.0.1', 'PHPUnit_Test');
+        $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->forget_me($sid, $forgetableEmail);
+    	$email = $gm->forget_me($forgetableEmail);
 
     	$this->assertTrue($email);
     }
@@ -204,16 +211,17 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 		$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 		$deletableEmailIds = array(1, 2, 3);
 
-    	$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
-    		->getMock();
+        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+            ->setConstructorArgs(array("127.0.0.1"))
+            ->getMock();
 
-		$connection->expects($this->once())
-			->method('transmit')
-			->will($this->returnValue($response));
+        $connection->expects($this->once())
+            ->method('transmit')
+            ->will($this->returnValue($response));
 
-    	$gm = new GuerrillaMail($connection, '127.0.0.1', 'PHPUnit_Test');
+        $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->del_email($sid, $deletableEmailIds);
+    	$email = $gm->del_email($deletableEmailIds);
 
     	$this->assertEquals($email, $deletableEmailIds);
     }
