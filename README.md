@@ -7,13 +7,17 @@ Example Usage
 =============
 
 ```php
+
+use Johnsn\GuerrillaMail\GuerrillaConnect\CurlConnection;
+use Johnsn\GuerrillaMail\GuerrillaMail;
+
 //The first parameter is the client's IP.
 //The second parameter is the client's Browser Agent.
 //There is an optional third parameter to set the api endpoint
-$connection = new \GuerrillaMail\GuerrillaConnect\CurlConnection("127.0.0.1", "GuerrillaMail_Library");
+$connection = new CurlConnection("127.0.0.1", "GuerrillaMail_Library");
 
 //The second parameter is the client's sid (optional)
-$gm = new \GuerrillaMail\GuerrillaMail($connection);
+$gm = new GuerrillaMail($connection);
 
 //Obtain an email address
 $response = $gm->get_email_address();
