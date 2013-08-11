@@ -41,7 +41,8 @@ class GuerrillaMail
     }
 
     /**
-     * Fetch new email address.
+     * Fetch new email address or 
+     * resume previous state if $this->sid_token != NULL
      *
      * @param string $lang
      * @return mixed
@@ -50,21 +51,25 @@ class GuerrillaMail
     {
         $action = "get_email_address";
         $options = array(
-            'lang' => $lang
+            'lang' => $lang,
+            'sid_token' => $this->sid_token,
         );
 
         return $this->_retrieve($action, $options);
     }
 
     /**
-     * Fetch new emails
+     * Fetch up to 20 new emails starting from the oldest email.
+     * If $seq is set, return up to 20 new emails starting from $seq
+     *
+     * @param int $seq mail_id sequence number starting point
      * @return mixed
      */
-    public function check_email()
+    public function check_email($seq = 0)
     {
         $action = "check_email";
         $options = array(
-            'seq' => 0,
+            'seq' => $seq,
             'sid_token' => $this->sid_token
         );
 
@@ -72,8 +77,12 @@ class GuerrillaMail
     }
 
     /**
-     * @param int $offset
-     * @param int $seq
+     * Fetch up to 20 new emails starting from the oldest email.
+     * If $offset is set, skip to the offset value (0 - 19)
+     * If $seq is set, return up to 20 new emails starting from $seq
+     *
+     * @param int $offset number of items to skip (0 - 19)
+     * @param int $seq mail_id sequence number starting point
      * @return mixed
      */
     public function get_email_list($offset = 0, $seq = 0)
@@ -93,7 +102,9 @@ class GuerrillaMail
     }
 
     /**
-     * @param $email_id
+     * Return email based on $email_id
+     *
+     * @param $email_id mail_id of the requested email
      * @return bool
      */
     public function fetch_email($email_id)
@@ -108,6 +119,8 @@ class GuerrillaMail
     }
 
     /**
+     * Change users email address
+     *
      * @param $email_user
      * @param string $lang
      * @return bool
@@ -125,6 +138,8 @@ class GuerrillaMail
     }
 
     /**
+     * Forget users email and sid_token
+     *
      * @param $email_address
      * @return bool
      */
@@ -140,7 +155,8 @@ class GuerrillaMail
     }
 
     /**
-     * @param $email_ids
+     * Delete the emails matching the array of mail_id's in $email_ids
+     * @param $email_ids list of mail_ids to delete from the server.
      * @return bool
      */
     public function del_email($email_ids)

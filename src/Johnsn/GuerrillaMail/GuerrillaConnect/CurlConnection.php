@@ -42,6 +42,12 @@ class CurlConnection extends Connection
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        if(isset($query['sid_token']))
+        {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Cookie: PHPSESSID=' . $query['sid_token']));
+        }
+
         $output = curl_exec($ch);
 
         $response = json_decode($output, true);
