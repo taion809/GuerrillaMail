@@ -1,12 +1,34 @@
-GuerrillaMail
-=============
+# GuerrillaMail
 
-A Simple Library for GuerrillaMail
+A Simple Library for [GuerrillaMail](http://www.guerrillamail.com).
 
-Example Usage
-=============
+## Requirements
+
+* PHP 5.3+, however, [PHP 5.5](http://php.net) is recommended.
+* PHP's curl extension is required if using the CurlConnection class.
+
+## Installation
+This library uses composer, you can install it like so
+
+```json
+
+{
+    "require": {
+        "johnsn/guerrillamail": "version"
+    }
+}
+
+```
+
+Replace version with the desired version or branch.  
+You can find additional installation details on this project's [packagist page](https://packagist.org/packages/johnsn/guerrillamail)
+
+## Example Usage
 
 ```php
+
+<?php
+require_once __DIR__.'/vendor/autoload.php';
 
 use Johnsn\GuerrillaMail\GuerrillaConnect\CurlConnection;
 use Johnsn\GuerrillaMail\GuerrillaMail;
@@ -26,3 +48,6 @@ $response = $gm->get_email_address();
 $emails = $gm->check_email();
 ```
 
+## License
+
+This project is licensed under the MIT License.
