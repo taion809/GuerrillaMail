@@ -221,7 +221,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
     	$email = $gm->del_email($deletableEmailIds);
 
-    	$this->assertEquals($email, $deletableEmailIds);
+    	$this->assertEquals($email['deleted_ids'], $deletableEmailIds);
     }
 
 }
