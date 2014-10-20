@@ -68,8 +68,14 @@ class CurlConnection extends Connection
         $url = $this->url . '?'. $this->build_query($action, $query);
         
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $curl_options = array(
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL            => $url,
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
+            CURLOPT_CAINFO         => dirname(__FILE__) . '/cacert.pem',
+        );
+        curl_setopt_array($ch, $curl_options);
 
         if(isset($query['sid_token']))
         {
@@ -122,10 +128,16 @@ class CurlConnection extends Connection
             }
         }
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->build_query($action, $query));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $curl_options = array(
+            CURLOPT_POST           => 1,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL            => $url,
+            CURLOPT_SSL_VERIFYPEER => true,
+            CURLOPT_SSL_VERIFYHOST => 2,
+            CURLOPT_CAINFO         => dirname(__FILE__) . '/cacert.pem',
+            CURLOPT_POSTFIELDS     => $this->build_query($action, $query)
+        );
+        curl_setopt_array($ch, $curl_options);
         if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }

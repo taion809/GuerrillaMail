@@ -19,7 +19,7 @@ abstract class Connection
      * GuerrillaMail api endpoint.
      * @var string
      */
-    protected $url = 'http://api.guerrillamail.com/ajax.php';
+    protected $url = 'https://api.guerrillamail.com/ajax.php';
 
     /**
      * Client IP Address
