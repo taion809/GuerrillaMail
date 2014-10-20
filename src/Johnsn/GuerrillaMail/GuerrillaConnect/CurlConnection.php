@@ -12,8 +12,10 @@ class CurlConnection extends Connection
      * @param string $ip Client IP
      * @param string $agent Client Agent
      * @param string $url API Endpoint
+     * @param string $domain Site's master domain
+     * @param string $api_key API Key
      */
-    public function __construct($ip, $agent = '', $url = '')
+    public function __construct($ip, $agent = '', $url = '', $domain='', $api_key='')
     {
         $this->ip = $ip;
 
@@ -26,6 +28,31 @@ class CurlConnection extends Connection
         {
             $this->url = $url;
         }
+        if(!empty($domain))
+        {
+            $this->domain = $domain;
+        }
+        if(!empty($api_key))
+        {
+            $this->api_key = $api_key;
+        }
+    }
+
+    /**
+     * @param $sid_token
+     *
+     * @return null|string
+     */
+    protected function get_api_token($sid_token) {
+        $ret = null;
+        if (!empty($this->api_token)) {
+            $ret = $this->api_token;
+        } elseif (!empty($this->api_key)) {
+            $this->api_token = hash_hmac('sha256', $sid_token, $this->api_key);
+            $ret = $this->api_token;
+        }
+        return $ret;
+
     }
 
     /**
@@ -37,6 +64,7 @@ class CurlConnection extends Connection
      */
     public function retrieve($action, array $query)
     {
+        $headers  = array();
         $url = $this->url . '?'. $this->build_query($action, $query);
         
         $ch = curl_init();
@@ -45,7 +73,14 @@ class CurlConnection extends Connection
 
         if(isset($query['sid_token']))
         {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Cookie: PHPSESSID=' . $query['sid_token']));
+            $headers[] = 'Cookie: PHPSESSID=' . $query['sid_token'];
+            if ($api_token = $this->get_api_token($query['sid_token'])) {
+                $headers[] = 'Authorization: ApiToken ' . $api_token;
+            }
+        }
+
+        if (!empty($headers)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
 
         $output = curl_exec($ch);
@@ -78,13 +113,22 @@ class CurlConnection extends Connection
      */
     public function transmit($action, array $query)
     {
+        $headers  = array();
         $url = $this->url;
-
+        if(isset($query['sid_token']))
+        {
+            if ($api_token = $this->get_api_token($query['sid_token'])) {
+                $headers[] = 'Authorization: ApiToken ' . $api_token;
+            }
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $this->build_query($action, $query));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        if (!empty($headers)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
         $output = curl_exec($ch);
 
         $response = json_decode($output, true);
