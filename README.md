@@ -36,6 +36,8 @@ use Johnsn\GuerrillaMail\GuerrillaMail;
 //The first parameter is the client's IP.
 //The second parameter is the client's Browser Agent.
 //There is an optional third parameter to set the api endpoint
+//There's an optional fourth parameter to set the site domain
+//There's an optional fifth parameter to set the API key (only needed if site access is set private)
 $connection = new CurlConnection("127.0.0.1", "GuerrillaMail_Library");
 
 //The second parameter is the client's sid (optional)
@@ -47,6 +49,9 @@ $response = $gm->get_email_address();
 //Fetch user's latest emails.
 $emails = $gm->check_email();
 ```
+## External links
+[GuerrillaMail](http://www.guerrillamail.com) - Guerrilla Mail API doc
+https://grr.la/ryo/guerrillamail.com/dash/ - Register / login for an API key. (API key is only needed for custom domains.)
 
 ## License
 
