@@ -51,7 +51,8 @@ $emails = $gm->check_email();
 ```
 ## External links
 [GuerrillaMail](http://www.guerrillamail.com) - Guerrilla Mail API doc
-https://grr.la/ryo/guerrillamail.com/dash/ - Register / login for an API key. (API key is only needed for custom domains.)
+
+https://grr.la/ryo/guerrillamail.com/login/ - Register / login for an API key. (API key is only needed for custom domains.)
 
 ## License
 
