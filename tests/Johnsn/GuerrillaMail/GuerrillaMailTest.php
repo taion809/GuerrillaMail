@@ -9,7 +9,6 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
     	$response = array(
     		'status' => 'success',
     		'data' => array(
-    			'msh' => 'making new addre',
     			'email_addr' => 'a@guerrillamailblock.com',
 				'email_timestamp' => time(),
 				'alias' => 'test_alias',
@@ -37,7 +36,6 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
     	$response = array(
     		'status' => 'success',
     		'data' => array(
-    			'msh' => 'making new addre',
     			'email_addr' => 'a@guerrillamailblock.com',
 				'email_timestamp' => time(),
 				'alias' => 'test_alias',
@@ -223,7 +221,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
     	$email = $gm->del_email($deletableEmailIds);
 
-    	$this->assertEquals($email, $deletableEmailIds);
+    	$this->assertEquals($email['deleted_ids'], $deletableEmailIds);
     }
 
 }

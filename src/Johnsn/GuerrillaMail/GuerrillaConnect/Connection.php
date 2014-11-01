@@ -19,7 +19,7 @@ abstract class Connection
      * GuerrillaMail api endpoint.
      * @var string
      */
-    protected $url = 'http://api.guerrillamail.com/ajax.php';
+    protected $url = 'https://api.guerrillamail.com/ajax.php';
 
     /**
      * Client IP Address
@@ -34,6 +34,26 @@ abstract class Connection
     protected $agent = "GuerrillaMail_Library";
 
     /**
+     * Site domain name. If this is a custom site, use the site domain or site id if domain hasn't been upgraded
+     * @var string
+     */
+    protected $domain = "guerrillamail.com";
+
+    /**
+     * API Key. Only needed to access if site was set to 'private' under the 'Edit'->Site settings
+     *
+     * @var string
+     */
+    protected $api_key = null;
+
+    /**
+     * API Token. Used for Authorization to private domains. Derived from API Key, per session
+     *
+     * @var string
+     */
+    protected $api_token = null;
+
+    /**
      * Format query string for GuerrillaMail API consumption.
      *
      * @param $action
@@ -42,6 +62,9 @@ abstract class Connection
      */
     public function build_query($action, array $options)
     {
+        if (!empty($this->domain)) {
+            $options['domain'] = $this->domain;
+        }
         $query = "f={$action}";
         foreach($options as $key => $value)
         {
