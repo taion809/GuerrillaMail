@@ -45,10 +45,10 @@ class GuerrillaMail
     }
 
     /**
-     * Fetch new email address or 
+     * Fetch new email address or
      * resume previous state if $this->sid_token != NULL
      *
-     * @param string $lang
+     * @param  string $lang
      * @return mixed
      */
     public function get_email_address($lang = 'en')
@@ -66,7 +66,7 @@ class GuerrillaMail
      * Fetch up to 20 new emails starting from the oldest email.
      * If $seq is set, return up to 20 new emails starting from $seq
      *
-     * @param int $seq mail_id sequence number starting point
+     * @param  int   $seq mail_id sequence number starting point
      * @return mixed
      */
     public function check_email($seq = 0)
@@ -85,8 +85,8 @@ class GuerrillaMail
      * If $offset is set, skip to the offset value (0 - 19)
      * If $seq is set, return up to 20 new emails starting from $seq
      *
-     * @param int $offset number of items to skip (0 - 19)
-     * @param int $seq mail_id sequence number starting point
+     * @param  int   $offset number of items to skip (0 - 19)
+     * @param  int   $seq    mail_id sequence number starting point
      * @return mixed
      */
     public function get_email_list($offset = 0, $seq = 0)
@@ -97,8 +97,7 @@ class GuerrillaMail
             'sid_token' => $this->sid_token
         );
 
-        if(!empty($seq))
-        {
+        if (!empty($seq)) {
             $options['seq'] = $seq;
         }
 
@@ -126,7 +125,7 @@ class GuerrillaMail
      * Change users email address
      *
      * @param $email_user
-     * @param string $lang
+     * @param  string $lang
      * @return bool
      */
     public function set_email_address($email_user, $lang = 'en')
@@ -183,11 +182,11 @@ class GuerrillaMail
     {
         $response = $this->connection->retrieve($action, $options);
 
-        if($response['status'] == 'error') {
+        if ($response['status'] == 'error') {
             return false;
         }
 
-        if(isset($response['data']['sid_token'])) {
+        if (isset($response['data']['sid_token'])) {
             $this->sid_token = $response['data']['sid_token'];
         }
 
@@ -203,16 +202,15 @@ class GuerrillaMail
     {
         $response = $this->connection->transmit($action, $options);
 
-        if($response['status'] == 'error') {
+        if ($response['status'] == 'error') {
             return false;
         }
 
-        if(isset($response['data']['sid_token'])) {
+        if (isset($response['data']['sid_token'])) {
             $this->sid_token = $response['data']['sid_token'];
         }
 
         return $response['data'];
     }
-
 
 }

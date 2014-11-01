@@ -9,29 +9,29 @@ namespace GuerrillaMail\GuerrillaConnect;
 class CurlConnection extends Connection
 {
     /**
-     * @param string $ip Client IP
-     * @param string $agent Client Agent
-     * @param string $url API Endpoint
-     * @param string $domain Site's master domain
+     * @param string $ip      Client IP
+     * @param string $agent   Client Agent
+     * @param string $url     API Endpoint
+     * @param string $domain  Site's master domain
      * @param string $api_key API Key
      */
     public function __construct($ip, $agent = '', $url = '', $domain='', $api_key='')
     {
         $this->ip = $ip;
 
-        if(!empty($agent)) {
+        if (!empty($agent)) {
             $this->agent = $agent;
         }
 
-        if(!empty($url)) {
+        if (!empty($url)) {
             $this->url = $url;
         }
 
-        if(!empty($domain)) {
+        if (!empty($domain)) {
             $this->domain = $domain;
         }
 
-        if(!empty($api_key)) {
+        if (!empty($api_key)) {
             $this->api_key = $api_key;
         }
     }
@@ -41,7 +41,8 @@ class CurlConnection extends Connection
      *
      * @return null|string
      */
-    protected function get_api_token($sid_token) {
+    protected function get_api_token($sid_token)
+    {
         $ret = null;
         if (!empty($this->api_token)) {
             $ret = $this->api_token;
@@ -56,15 +57,15 @@ class CurlConnection extends Connection
     /**
      * HTTP GET using cURL
      *
-     * @param string $action
-     * @param array $query
+     * @param  string      $action
+     * @param  array       $query
      * @return array|mixed
      */
     public function retrieve($action, array $query)
     {
         $headers  = array();
         $url = $this->url . '?'. $this->build_query($action, $query);
-        
+
         $ch = curl_init();
         $curl_options = array(
             CURLOPT_RETURNTRANSFER => 1,
@@ -76,7 +77,7 @@ class CurlConnection extends Connection
 
         curl_setopt_array($ch, $curl_options);
 
-        if(isset($query['sid_token'])) {
+        if (isset($query['sid_token'])) {
             $headers[] = 'Cookie: PHPSESSID=' . $query['sid_token'];
             if ($api_token = $this->get_api_token($query['sid_token'])) {
                 $headers[] = 'Authorization: ApiToken ' . $api_token;
@@ -92,7 +93,7 @@ class CurlConnection extends Connection
         $response = json_decode($output, true);
 
         $data = array();
-        switch(curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+        switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
             case 200:
                 $data['status'] = 'success';
                 $data['data'] = $response;
@@ -104,21 +105,22 @@ class CurlConnection extends Connection
         }
 
         curl_close($ch);
+
         return $data;
     }
 
     /**
      * HTTP POST using cURL
      *
-     * @param string $action
-     * @param array $query
+     * @param  string      $action
+     * @param  array       $query
      * @return array|mixed
      */
     public function transmit($action, array $query)
     {
         $headers  = array();
         $url = $this->url;
-        if(isset($query['sid_token'])) {
+        if (isset($query['sid_token'])) {
             if ($api_token = $this->get_api_token($query['sid_token'])) {
                 $headers[] = 'Authorization: ApiToken ' . $api_token;
             }
@@ -146,7 +148,7 @@ class CurlConnection extends Connection
         $response = json_decode($output, true);
 
         $data = array();
-        switch(curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+        switch (curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
             case 200:
                 $data['status'] = 'success';
                 $data['data'] = $response;
@@ -158,6 +160,7 @@ class CurlConnection extends Connection
         }
 
         curl_close($ch);
+
         return $data;
     }
 }

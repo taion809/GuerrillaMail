@@ -57,7 +57,7 @@ abstract class Connection
      * Format query string for GuerrillaMail API consumption.
      *
      * @param $action
-     * @param array $options
+     * @param  array  $options
      * @return string
      */
     public function build_query($action, array $options)
@@ -66,14 +66,13 @@ abstract class Connection
             $options['domain'] = $this->domain;
         }
         $query = "f={$action}";
-        foreach($options as $key => $value)
-        {
-            if(!is_array($value)) {
+        foreach ($options as $key => $value) {
+            if (!is_array($value)) {
                 $query .= "&{$key}=" . urlencode($value);
                 continue;
             }
 
-            foreach($value as $a_key => $a_value) {
+            foreach ($value as $a_key => $a_value) {
                 $query .= "&{$key}%5B%5D=" . urlencode($a_value);
             }
         }
@@ -84,18 +83,18 @@ abstract class Connection
     /**
      * HTTP GET
      *
-     * @param string $action
-     * @param array $query
+     * @param  string $action
+     * @param  array  $query
      * @return mixed
      */
-    abstract function retrieve($action, array $query);
+    abstract public function retrieve($action, array $query);
 
     /**
      * HTTP POST
      *
-     * @param string $action
-     * @param array $query
+     * @param  string $action
+     * @param  array  $query
      * @return mixed
      */
-    abstract function transmit($action, array $query);
+    abstract public function transmit($action, array $query);
 }
