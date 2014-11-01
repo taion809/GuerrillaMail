@@ -7,11 +7,11 @@
  * To change this template use File | Settings | File Templates.
  */
 
-namespace Johnsn\GuerrillaMail\GuerrillaConnect;
+namespace GuerrillaMail\GuerrillaConnect;
 
 /**
  * Class Connection
- * @package Johnsn\GuerrillaMail\GuerrillaConnect
+ * @package GuerrillaMail\GuerrillaConnect
  */
 abstract class Connection
 {
@@ -68,14 +68,12 @@ abstract class Connection
         $query = "f={$action}";
         foreach($options as $key => $value)
         {
-            if(!is_array($value))
-            {
+            if(!is_array($value)) {
                 $query .= "&{$key}=" . urlencode($value);
                 continue;
             }
 
-            foreach($value as $a_key => $a_value)
-            {
+            foreach($value as $a_key => $a_value) {
                 $query .= "&{$key}%5B%5D=" . urlencode($a_value);
             }
         }

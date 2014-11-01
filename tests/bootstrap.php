@@ -1,4 +1,4 @@
 <?php
 
 $loader = require __DIR__.'/../vendor/autoload.php';
-$loader->add('Johnsn\\GuerrillaMail\\', __DIR__);
+$loader->add('GuerrillaMail\\', __DIR__);

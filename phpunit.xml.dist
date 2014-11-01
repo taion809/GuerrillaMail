@@ -14,13 +14,13 @@
         >
     <testsuites>
         <testsuite name="GuerrillaMail Test Suite">
-            <directory>tests/Johnsn/GuerrillaMail/</directory>
+            <directory>tests/GuerrillaMail/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">src/Johnsn/GuerrillaMail/</directory>
+            <directory suffix=".php">src/GuerrillaMail/</directory>
         </whitelist>
     </filter>
 </phpunit>

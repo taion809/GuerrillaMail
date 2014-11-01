@@ -1,6 +1,6 @@
 <?php
 
-namespace Johnsn\GuerrillaMail;
+namespace GuerrillaMail;
 
 class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 {
@@ -16,7 +16,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 			),
 		);
 
-    	$connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+    	$connection = $this->getMockBuilder("GuerrillaMail\\GuerrillaConnect\\CurlConnection")
             ->setConstructorArgs(array("127.0.0.1"))
     		->getMock();
 
@@ -43,7 +43,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 			),
 		);
 
-        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+        $connection = $this->getMockBuilder("GuerrillaMail\\GuerrillaConnect\\CurlConnection")
             ->setConstructorArgs(array("127.0.0.1"))
             ->getMock();
 
@@ -73,7 +73,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
     	$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 
-        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+        $connection = $this->getMockBuilder("GuerrillaMail\\GuerrillaConnect\\CurlConnection")
             ->setConstructorArgs(array("127.0.0.1"))
             ->getMock();
 
@@ -103,7 +103,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
     	$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 
-        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+        $connection = $this->getMockBuilder("GuerrillaMail\\GuerrillaConnect\\CurlConnection")
             ->setConstructorArgs(array("127.0.0.1"))
             ->getMock();
 
@@ -130,7 +130,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
     	$sid = '2cvob6bud4l6iqb61tvnklc7i7';
     	$mail_id = 1;
 
-        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+        $connection = $this->getMockBuilder("GuerrillaMail\\GuerrillaConnect\\CurlConnection")
             ->setConstructorArgs(array("127.0.0.1"))
             ->getMock();
 
@@ -159,7 +159,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 		$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 		$expectedEmail = 'new_email@guerrillamailblock.com';
 
-        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+        $connection = $this->getMockBuilder("GuerrillaMail\\GuerrillaConnect\\CurlConnection")
             ->setConstructorArgs(array("127.0.0.1"))
             ->getMock();
 
@@ -184,7 +184,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 		$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 		$forgetableEmail = 'new_email@guerrillamailblock.com';
 
-        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+        $connection = $this->getMockBuilder("GuerrillaMail\\GuerrillaConnect\\CurlConnection")
             ->setConstructorArgs(array("127.0.0.1"))
             ->getMock();
 
@@ -211,7 +211,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 		$sid = '2cvob6bud4l6iqb61tvnklc7i7';
 		$deletableEmailIds = array(1, 2, 3);
 
-        $connection = $this->getMockBuilder("Johnsn\\GuerrillaMail\\GuerrillaConnect\\CurlConnection")
+        $connection = $this->getMockBuilder("GuerrillaMail\\GuerrillaConnect\\CurlConnection")
             ->setConstructorArgs(array("127.0.0.1"))
             ->getMock();
 
