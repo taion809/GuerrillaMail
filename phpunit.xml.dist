@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="tests/bootstrap.php" 
-    colors="true"
-    printerFile="vendor/whatthejeff/nyancat-phpunit-resultprinter/src/NyanCat/PHPUnit/ResultPrinter.php"
-    printerClass="NyanCat\PHPunit\ResultPrinter"
-    >
+<phpunit bootstrap="tests/bootstrap.php"
+         colors="true"
+         verbose="true"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+        >
     <testsuites>
         <testsuite name="GuerrillaMail Test Suite">
             <directory>tests/Johnsn/GuerrillaMail/</directory>

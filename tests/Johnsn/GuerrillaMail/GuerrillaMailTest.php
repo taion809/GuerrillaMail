@@ -203,7 +203,9 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
     {
     	$response = array(
     		'status' => 'success',
-    		'data' => array(1, 2, 3),
+    		'data' => array(
+                'deleted_ids' => array(1, 2, 3)
+            ),
 		);
 
 		$sid = '2cvob6bud4l6iqb61tvnklc7i7';
