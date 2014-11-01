@@ -1,10 +1,10 @@
 <?php
 
-namespace Johnsn\GuerrillaMail\GuerrillaConnect;
+namespace GuerrillaMail\GuerrillaConnect;
 
 /**
  * Class CurlConnection
- * @package Johnsn\GuerrillaMail\GuerrillaConnect
+ * @package GuerrillaMail\GuerrillaConnect
  */
 class CurlConnection extends Connection
 {
@@ -19,21 +19,19 @@ class CurlConnection extends Connection
     {
         $this->ip = $ip;
 
-        if(!empty($agent))
-        {
+        if(!empty($agent)) {
             $this->agent = $agent;
         }
 
-        if(!empty($url))
-        {
+        if(!empty($url)) {
             $this->url = $url;
         }
-        if(!empty($domain))
-        {
+
+        if(!empty($domain)) {
             $this->domain = $domain;
         }
-        if(!empty($api_key))
-        {
+
+        if(!empty($api_key)) {
             $this->api_key = $api_key;
         }
     }
@@ -51,8 +49,8 @@ class CurlConnection extends Connection
             $this->api_token = hash_hmac('sha256', $sid_token, $this->api_key);
             $ret = $this->api_token;
         }
-        return $ret;
 
+        return $ret;
     }
 
     /**
@@ -75,10 +73,10 @@ class CurlConnection extends Connection
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_CAINFO         => dirname(__FILE__) . '/cacert.pem',
         );
+
         curl_setopt_array($ch, $curl_options);
 
-        if(isset($query['sid_token']))
-        {
+        if(isset($query['sid_token'])) {
             $headers[] = 'Cookie: PHPSESSID=' . $query['sid_token'];
             if ($api_token = $this->get_api_token($query['sid_token'])) {
                 $headers[] = 'Authorization: ApiToken ' . $api_token;
@@ -94,8 +92,7 @@ class CurlConnection extends Connection
         $response = json_decode($output, true);
 
         $data = array();
-        switch(curl_getinfo($ch, CURLINFO_HTTP_CODE))
-        {
+        switch(curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
             case 200:
                 $data['status'] = 'success';
                 $data['data'] = $response;
@@ -121,12 +118,12 @@ class CurlConnection extends Connection
     {
         $headers  = array();
         $url = $this->url;
-        if(isset($query['sid_token']))
-        {
+        if(isset($query['sid_token'])) {
             if ($api_token = $this->get_api_token($query['sid_token'])) {
                 $headers[] = 'Authorization: ApiToken ' . $api_token;
             }
         }
+
         $ch = curl_init();
         $curl_options = array(
             CURLOPT_POST           => 1,
@@ -137,17 +134,19 @@ class CurlConnection extends Connection
             CURLOPT_CAINFO         => dirname(__FILE__) . '/cacert.pem',
             CURLOPT_POSTFIELDS     => $this->build_query($action, $query)
         );
+
         curl_setopt_array($ch, $curl_options);
+
         if (!empty($headers)) {
             curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         }
+
         $output = curl_exec($ch);
 
         $response = json_decode($output, true);
 
         $data = array();
-        switch(curl_getinfo($ch, CURLINFO_HTTP_CODE))
-        {
+        switch(curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
             case 200:
                 $data['status'] = 'success';
                 $data['data'] = $response;

@@ -1,7 +1,11 @@
 <?php
 
-namespace Johnsn\GuerrillaMail;
+namespace GuerrillaMail;
 
+/**
+ * Class GuerrillaMail
+ * @package GuerrillaMail
+ */
 class GuerrillaMail
 {
     /**
@@ -179,13 +183,11 @@ class GuerrillaMail
     {
         $response = $this->connection->retrieve($action, $options);
 
-        if($response['status'] == 'error')
-        {
+        if($response['status'] == 'error') {
             return false;
         }
 
-        if(isset($response['data']['sid_token']))
-        {
+        if(isset($response['data']['sid_token'])) {
             $this->sid_token = $response['data']['sid_token'];
         }
 
@@ -201,13 +203,11 @@ class GuerrillaMail
     {
         $response = $this->connection->transmit($action, $options);
 
-        if($response['status'] == 'error')
-        {
+        if($response['status'] == 'error') {
             return false;
         }
 
-        if(isset($response['data']['sid_token']))
-        {
+        if(isset($response['data']['sid_token'])) {
             $this->sid_token = $response['data']['sid_token'];
         }
 

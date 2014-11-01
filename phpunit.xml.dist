@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit bootstrap="tests/bootstrap.php"
+<phpunit bootstrap="./tests/bootstrap.php"
          colors="true"
          verbose="true"
          backupGlobals="false"
@@ -14,13 +14,13 @@
         >
     <testsuites>
         <testsuite name="GuerrillaMail Test Suite">
-            <directory>tests/Johnsn/GuerrillaMail/</directory>
+            <directory suffix=".php">./tests/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">src/Johnsn/GuerrillaMail/</directory>
+            <directory suffix=".php">./src/GuerrillaMail/</directory>
         </whitelist>
     </filter>
 </phpunit>
