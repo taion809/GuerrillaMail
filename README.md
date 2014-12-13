@@ -32,8 +32,8 @@ You can find additional installation details on this project's [packagist page](
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 
-use Johnsn\GuerrillaMail\GuerrillaConnect\CurlConnection;
-use Johnsn\GuerrillaMail\GuerrillaMail;
+use GuerrillaMail\GuerrillaConnect\CurlConnection;
+use GuerrillaMail\GuerrillaMail;
 
 //The first parameter is the client's IP.
 //The second parameter is the client's Browser Agent.
