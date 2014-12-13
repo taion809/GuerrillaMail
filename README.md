@@ -51,6 +51,15 @@ $response = $gm->get_email_address();
 //Fetch user's latest emails.
 $emails = $gm->check_email();
 ```
+## TODO:
+I haven't given this library the TLC it deserves for awhile due to having a busy schedule so here are the couple of things that I will be taking care of in the next month or two
+
+In no particular order:
+  - [ ] Decouple transport from client, currently relies on CurlClient which is not right.
+  - [ ] Move to the latest guzzle http client
+  - [ ] Use a middleware for authentication
+  - [ ] Better documentation and examples
+
 ## External links
 [GuerrillaMail](http://www.guerrillamail.com) - Guerrilla Mail API doc
 
