@@ -10,5 +10,6 @@ namespace GuerrillaMail\Connection;
 
 interface ConnectionInterface
 {
-    public function get($uri, array $options);
+    public function get($action, array $options);
+    public function post($action, array $options);
 }

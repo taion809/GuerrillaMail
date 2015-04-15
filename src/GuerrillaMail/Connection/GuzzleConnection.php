@@ -64,38 +64,21 @@ class GuzzleConnection implements ConnectionInterface
     }
 
     /**
-     * @param $uri
-     * @param array $options
-     * @return mixed
-     * @throws \Exception rethrows RequestException
-     */
-    public function get($uri, array $options = [])
-    {
-        return $this->buildRequest('GET', $uri, $options);
-    }
-
-    /**
-     * @param $uri
+     * @param $action
      * @param array $options
      * @return mixed
      * @throws \Exception
      */
-    public function post($uri, array $options = [])
+    public function get($action, array $options)
     {
-        return $this->buildRequest('POST', $uri, $options);
-    }
-
-    private function buildRequest($method, $uri, array $options)
-    {
-        $query = array_merge_recursive([
-            'f' => $uri,
-            'ip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1',
-            'agent' => self::USER_AGENT
-        ], $options);
+        $requestOptions = $this->buildRequestOptions($action, $options);
 
         try {
-            $request = $this->makeRequest($method, $query);
-            $response = $this->connection->send($request);
+            $response = $this->connection->get($this->api_url, [
+                'headers' => $requestOptions['headers'],
+                'cookies' => $requestOptions['cookies'],
+                'query' => $requestOptions['query'],
+            ]);
         } catch(RequestException $e) {
             throw new \Exception($e->getMessage(), $e->getCode(), $e);
         }
@@ -104,11 +87,41 @@ class GuzzleConnection implements ConnectionInterface
     }
 
     /**
-     * @param $method
+     * @param $action
      * @param array $options
-     * @return \GuzzleHttp\Message\RequestInterface
+     * @return mixed
+     * @throws \Exception
      */
-    private function makeRequest($method, array $options) {
+    public function post($action, array $options)
+    {
+        $requestOptions = $this->buildRequestOptions($action, $options);
+
+        try {
+            $response = $this->connection->post($this->api_url, [
+                'headers' => $requestOptions['headers'],
+                'cookies' => $requestOptions['cookies'],
+                'query' => $requestOptions['query'],
+            ]);
+        } catch(RequestException $e) {
+            throw new \Exception($e->getMessage(), $e->getCode(), $e);
+        }
+
+        return $response->json();
+    }
+
+    private function buildRequestOptions($action, array $options)
+    {
+        $options = array_merge_recursive([
+            'f' => $action,
+            'ip' => isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '127.0.0.1',
+            'agent' => self::USER_AGENT
+        ], $options);
+
+        return $this->parseOptions($options);
+    }
+
+    private function parseOptions(array $options)
+    {
         $cookies = [];
         $headers = [];
 
@@ -121,14 +134,11 @@ class GuzzleConnection implements ConnectionInterface
             unset($options['sid_token']);
         }
 
-        $request = $this->connection->createRequest($method, $this->api_url, [
+        return [
             'cookies' => $cookies,
-            'headers' => $headers
-        ]);
-
-        $request->setQuery($options);
-
-        return $request;
+            'headers' => $headers,
+            'query' => $options
+        ];
     }
 
     /**
