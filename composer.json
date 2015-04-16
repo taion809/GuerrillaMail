@@ -23,5 +23,10 @@
         "psr-4": {
             "GuerrillaMail\\": "src/GuerrillaMail"
         }
+    },
+  "extra": {
+    "branch-alias": {
+      "dev-next": "1.0.x-dev"
     }
+  }
 }
