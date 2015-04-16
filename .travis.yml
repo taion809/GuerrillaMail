@@ -8,9 +8,13 @@ php:
 
 before_script:
   - composer self-update
-  - composer install --no-interaction --prefer-source --dev
+  - composer install --no-interaction --prefer-source --dev -o
+  - pear install PHP_CodeSniffer
 
-script: php vendor/bin/phpunit
+script:
+  - php vendor/bin/phpunit --coverage-text
+  - phpcs --colors --standard=PSR1 ./src
+  - php vendor/bin/phpmd ./src text design,unusedcode
 
 matrix:
   allow_failures:

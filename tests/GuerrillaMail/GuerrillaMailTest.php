@@ -23,7 +23,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
     	$gm = new GuerrillaMail($connection);
 
-    	$email = $gm->get_email_address();
+    	$email = $gm->getEmailAddress();
 
     	$this->assertNotEmpty($email);
     }
@@ -47,7 +47,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
         $gm = new GuerrillaMail($connection);
 
-    	$email = $gm->get_email_address();
+    	$email = $gm->getEmailAddress();
 
     	$this->assertArrayHasKey('email_addr', $email);
     }
@@ -74,7 +74,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
         $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->check_email();
+    	$email = $gm->checkEmail();
 
     	$this->assertArrayHasKey('list', $email);
     }
@@ -101,7 +101,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
         $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->check_email();
+    	$email = $gm->checkEmail();
 
     	$this->assertArrayHasKey('list', $email);
     }
@@ -125,7 +125,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
         $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->fetch_email($mail_id);
+    	$email = $gm->fetchEmail($mail_id);
 
     	$this->assertEquals($email['mail_id'], 1);
     }
@@ -151,7 +151,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
         $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->set_email_address('new_email@guerrillamailblock.com');
+    	$email = $gm->setEmailAddress('new_email@guerrillamailblock.com');
 
     	$this->assertEquals($email['email_addr'], $expectedEmail);
     }
@@ -173,7 +173,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
         $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->forget_me($forgetableEmail);
+    	$email = $gm->forgetMe($forgetableEmail);
 
     	$this->assertTrue($email);
     }
@@ -197,7 +197,7 @@ class GuerrillaMailTest extends \PHPUnit_Framework_TestCase
 
         $gm = new GuerrillaMail($connection, $sid);
 
-    	$email = $gm->del_email($deletableEmailIds);
+    	$email = $gm->delEmail($deletableEmailIds);
 
     	$this->assertEquals($email['deleted_ids'], $deletableEmailIds);
     }

@@ -24,14 +24,6 @@ class GuerrillaMail
     private $sid_token = null;
 
     /**
-     * Available domains
-     * @var array
-     */
-    private $domains = array(
-        'guerrillamailblock.com',
-    );
-
-    /**
      * @param Connection\ConnectionInterface $client
      * @param null $sid_token
      */
@@ -57,7 +49,7 @@ class GuerrillaMail
      * @param string $lang
      * @return mixed
      */
-    public function get_email_address($lang = 'en')
+    public function getEmailAddress($lang = 'en')
     {
         $action = "get_email_address";
         $options = array(
@@ -75,7 +67,7 @@ class GuerrillaMail
      * @param int $seq mail_id sequence number starting point
      * @return mixed
      */
-    public function check_email($seq = 0)
+    public function checkEmail($seq = 0)
     {
         $action = "check_email";
         $options = array(
@@ -95,7 +87,7 @@ class GuerrillaMail
      * @param int $seq mail_id sequence number starting point
      * @return mixed
      */
-    public function get_email_list($offset = 0, $seq = 0)
+    public function getEmailList($offset = 0, $seq = 0)
     {
         $action = "get_email_list";
         $options = array(
@@ -117,7 +109,7 @@ class GuerrillaMail
      * @param $email_id mail_id of the requested email
      * @return bool
      */
-    public function fetch_email($email_id)
+    public function fetchEmail($email_id)
     {
         $action = "fetch_email";
         $options = array(
@@ -135,7 +127,7 @@ class GuerrillaMail
      * @param string $lang
      * @return bool
      */
-    public function set_email_address($email_user, $lang = 'en')
+    public function setEmailAddress($email_user, $lang = 'en')
     {
         $action = "set_email_user";
         $options = array(
@@ -153,7 +145,7 @@ class GuerrillaMail
      * @param $email_address
      * @return bool
      */
-    public function forget_me($email_address)
+    public function forgetMe($email_address)
     {
         $action = "forget_me";
         $options = array(
@@ -169,7 +161,7 @@ class GuerrillaMail
      * @param $email_ids list of mail_ids to delete from the server.
      * @return bool
      */
-    public function del_email($email_ids)
+    public function delEmail($email_ids)
     {
         $action = "del_email";
         $options = array(
