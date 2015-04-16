@@ -171,3 +171,7 @@ pip-log.txt
 .DS_Store
 /www/nbproject/private/
 /nbproject/private/
+
+# Docs
+docs/_build
+docs/*.pyc
