@@ -51,7 +51,7 @@ class GuerrillaMail
      * Fetch new email address.
      *
      * @param string $lang
-     * @return mixed
+     * @return EmailAddressModel
      */
     public function getEmailAddress($lang = 'en')
     {
