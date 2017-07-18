@@ -2,6 +2,8 @@
 
 namespace Comicrelief\GuerrillaMail;
 
+use Comicrelief\GuerrillaMail\Model\EmailAddressModel;
+
 /**
  * Class GuerrillaMail
  *

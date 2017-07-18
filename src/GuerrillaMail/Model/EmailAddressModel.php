@@ -1,6 +1,6 @@
 <?php
 
-namespace Comicrelief\GuerrillaMail;
+namespace Comicrelief\GuerrillaMail\Model;
 
 /**
  * Class EmailAddressModel
