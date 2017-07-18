@@ -3,7 +3,7 @@
     "type": "library",
     "description": "A simple GuerrillaMail library for PHP 5.4+",
     "keywords": ["email"],
-    "homepage": "https://github.com/taion809/GuerrillaMail",
+    "homepage": "https://github.com/comicrelief/GuerrillaMail",
     "license": "MIT",
     "authors": [
         {
