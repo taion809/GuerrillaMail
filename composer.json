@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "GuerrillaMail\\": "src/GuerrillaMail"
+            "Comicrelief\\GuerrillaMail\\": "src/GuerrillaMail"
         }
     },
   "extra": {
