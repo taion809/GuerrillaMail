@@ -21,7 +21,7 @@ composer require comicrelief/guerrillamail
 <?php
 require_once __DIR__.'/vendor/autoload.php';
 
-use GuerrillaMail\GuerrillaConnect\CurlConnection;
+use GuerrillaMail\Connection\GuzzleConnection;
 use GuerrillaMail\GuerrillaMail;
 
 //The first parameter is the client's IP.
@@ -29,7 +29,7 @@ use GuerrillaMail\GuerrillaMail;
 //There is an optional third parameter to set the api endpoint
 //There's an optional fourth parameter to set the site domain
 //There's an optional fifth parameter to set the API key (only needed if site access is set private)
-$connection = new CurlConnection("127.0.0.1", "GuerrillaMail_Library");
+$connection = new GuzzleConnection("127.0.0.1", "GuerrillaMail_Library");
 
 //The second parameter is the client's sid (optional)
 $gm = new GuerrillaMail($connection);
