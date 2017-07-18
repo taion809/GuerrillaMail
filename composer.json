@@ -1,5 +1,5 @@
 {
-    "name": "johnsn/guerrillamail",
+    "name": "comicrelief/guerrillamail",
     "type": "library",
     "description": "A simple GuerrillaMail library for PHP 5.4+",
     "keywords": ["email"],
