@@ -1,11 +1,7 @@
-# GuerrillaMail
+# Comicrelief/GuerrillaMail
 
-A Simple Library for [GuerrillaMail](http://www.guerrillamail.com).
-
-## Requirements
-
-* PHP 5.3+, however, [PHP 5.5](http://php.net) is recommended.
-* PHP's curl extension is required if using the CurlConnection class.
+A Simple Library that utilises [GuerrillaMail](http://www.guerrillamail.com) and provides some basic behat tests, that 
+allow you to test email form submissions.
 
 ## Installation
 This library uses composer, you can install it using composer on the command like so,
@@ -14,37 +10,46 @@ This library uses composer, you can install it using composer on the command lik
 composer require comicrelief/guerrillamail
 ```
 
-## Example Usage
+## Example Behat Tests
 
-```php
+### Generate a new email address
+The following will generate a new email inbox.
 
-<?php
-require_once __DIR__.'/vendor/autoload.php';
-
-use GuerrillaMail\GuerrillaConnect\CurlConnection;
-use GuerrillaMail\GuerrillaMail;
-
-//The first parameter is the client's IP.
-//The second parameter is the client's Browser Agent.
-//There is an optional third parameter to set the api endpoint
-//There's an optional fourth parameter to set the site domain
-//There's an optional fifth parameter to set the API key (only needed if site access is set private)
-$connection = new CurlConnection("127.0.0.1", "GuerrillaMail_Library");
-
-//The second parameter is the client's sid (optional)
-$gm = new GuerrillaMail($connection);
-
-//Obtain an email address
-$response = $gm->get_email_address();
-
-//Fetch user's latest emails.
-$emails = $gm->check_email();
+```text
+Then I generate a new test email address
 ```
 
-## External links
-[GuerrillaMail](http://www.guerrillamail.com) - Guerrilla Mail API doc
+### Fill a field with a test email address
 
-https://grr.la/ryo/guerrillamail.com/login/ - Register / login for an API key. (API key is only needed for custom domains.)
+The following will field a field with a test email address,
+
+```text
+Then I fill in the "edit-email" field with a test email address
+```
+
+### Check inbox for email with subject & body
+
+The following will check the inbox to see if an email exists with 'test' in the body and 'Test'
+in the subject.
+
+```text
+Then I should receive an email with "test" in the body and "Test" in the subject
+```
+### Check inbox for email with subject content
+
+The following will check the inbox to see if there is an email with 'Test' in the email subject.
+
+```text
+Then I should receive an email with "Test" in the subject
+```
+
+### Check inbox for email with body content
+
+The following will check the inbox to see if there is an email with 'test' in the email body.
+
+```text
+Then I should receive an email with "Test" in the subject
+```
 
 ## License
 
