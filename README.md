@@ -48,7 +48,7 @@ Then I should receive an email with "Test" in the subject
 The following will check the inbox to see if there is an email with 'test' in the email body.
 
 ```text
-Then I should receive an email with "Test" in the subject
+Then I should receive an email with "Test" in the body
 ```
 
 ## License
