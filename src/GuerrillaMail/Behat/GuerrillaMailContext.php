@@ -105,7 +105,7 @@ class GuerrillaMailContext extends RawMinkContext implements Context {
   {
     $loweredContents = strtolower($contents);
 
-    for ($attempts = 0; $attempts <= 15; $attempts++) {
+    for ($attempts = 0; $attempts <= 60; $attempts++) {
       // Fetch and cache the emails.
       $this->cacheEmails();
 
@@ -123,7 +123,7 @@ class GuerrillaMailContext extends RawMinkContext implements Context {
         }
       }
 
-      sleep(2);
+      sleep(5);
     }
 
     throw new \Exception('Email does not exist');
