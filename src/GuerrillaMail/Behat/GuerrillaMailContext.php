@@ -123,7 +123,7 @@ class GuerrillaMailContext extends RawMinkContext implements Context {
         }
       }
 
-      sleep(5);
+      sleep(2);
     }
 
     throw new \Exception('Email does not exist');
