@@ -13,7 +13,6 @@
     ],
     "require": {
         "php": ">=5.4.0",
-        "guzzlehttp/guzzle": "6.3.*",
         "behat/behat": "^3.3",
         "behat/mink-extension": "^2.2"
     },
