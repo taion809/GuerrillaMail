@@ -160,4 +160,16 @@ class GuerrillaMailContext extends RawMinkContext implements Context {
     $this->cachedEmails = [];
   }
 
+  /**
+   * Fills in form field with specified CSS locator
+   *
+   * @Then I fill in the css :locator field with a test email address
+   */
+  public function iFillInTheLocatorFieldWithATestEmailAddress($locator)
+  {
+    $field = str_replace('\\"', '"', $locator);
+    $value = $this->emailAddressModel->getEmailAddress();
+    $this->getSession()->getPage()->find('css',$locator)->setValue($value);
+  }
+
 }
