@@ -1,69 +1,67 @@
-# GuerrillaMail
+# Behat email testing suite
 
-A Simple Library for [GuerrillaMail](http://www.guerrillamail.com).
+A Simple Library that utilises [GuerrillaMail](http://www.guerrillamail.com) and provides some basic behat tests, that 
+allow you to test succesful form submissions that send emails. 
 
-[![Build Status](https://travis-ci.org/taion809/GuerrillaMail.svg?branch=master)](https://travis-ci.org/taion809/GuerrillaMail)
+[GuerrillaMail](http://www.guerrillamail.com) is a free service and is therefore perfect for email testing. This project 
+was forked from [taion809/GuerrillaMail](https://github.com/taion809/GuerrillaMail) and has been reduced marginally to 
+just use CURL and to add some basic modeling to the [GuerrillaMail](http://www.guerrillamail.com) API responses.
 
-## Requirements
-
-* PHP 5.3+, however, [PHP 5.5](http://php.net) is recommended.
-* PHP's curl extension is required if using the CurlConnection class.
+It is only recommended to use this library for testing in behat, as we will be undertaking more work to improve 
+underlying API response modeling, however we will try to ensure compatibility with tests in tagged releases.
 
 ## Installation
-This library uses composer, you can install it like so
+This library uses composer, you can install it using composer on the command like so,
 
-```json
-
-{
-    "require": {
-        "johnsn/guerrillamail": "version"
-    }
-}
-
+```bash
+composer require comicrelief/guerrillamail
 ```
 
-Replace version with the desired version or branch.  
-You can find additional installation details on this project's [packagist page](https://packagist.org/packages/johnsn/guerrillamail)
+## Behat Tests
 
-## Example Usage
+The follwing behat tests will check for emails delivered into the guerillamail account for 2 minues and will then fail.
 
-```php
+### Generate a new email address
+The following will generate a new email inbox.
 
-<?php
-require_once __DIR__.'/vendor/autoload.php';
+An email address is initially created when the package is instantiated, this therefore only needs to be run when running 
+multiple tests on email fields.
 
-use GuerrillaMail\GuerrillaConnect\CurlConnection;
-use GuerrillaMail\GuerrillaMail;
-
-//The first parameter is the client's IP.
-//The second parameter is the client's Browser Agent.
-//There is an optional third parameter to set the api endpoint
-//There's an optional fourth parameter to set the site domain
-//There's an optional fifth parameter to set the API key (only needed if site access is set private)
-$connection = new CurlConnection("127.0.0.1", "GuerrillaMail_Library");
-
-//The second parameter is the client's sid (optional)
-$gm = new GuerrillaMail($connection);
-
-//Obtain an email address
-$response = $gm->get_email_address();
-
-//Fetch user's latest emails.
-$emails = $gm->check_email();
+```text
+Then I generate a new test email address
 ```
-## TODO:
-I haven't given this library the TLC it deserves for awhile due to having a busy schedule so here are the couple of things that I will be taking care of in the next month or two
 
-In no particular order:
-  - [ ] Decouple transport from client, currently relies on CurlClient which is not right.
-  - [ ] Move to the latest guzzle http client
-  - [ ] Use a middleware for authentication
-  - [ ] Better documentation and examples
+### Fill a field with a test email address
 
-## External links
-[GuerrillaMail](http://www.guerrillamail.com) - Guerrilla Mail API doc
+The following will field a field with a test email address,
 
-https://grr.la/ryo/guerrillamail.com/login/ - Register / login for an API key. (API key is only needed for custom domains.)
+```text
+Then I fill in the "edit-email" field with a test email address
+```
+
+### Check inbox for email with subject & body
+
+The following will check the inbox to see if an email exists with 'test' in the body and 'Test'
+in the subject.
+
+```text
+Then I should receive an email with "test" in the body and "Test" in the subject
+```
+### Check inbox for email with subject content
+
+The following will check the inbox to see if there is an email with 'Test' in the email subject.
+
+```text
+Then I should receive an email with "Test" in the subject
+```
+
+### Check inbox for email with body content
+
+The following will check the inbox to see if there is an email with 'test' in the email body.
+
+```text
+Then I should receive an email with "Test" in the body
+```
 
 ## License
 
